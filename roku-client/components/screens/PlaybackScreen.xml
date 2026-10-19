@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Native Video node playback (F-05/F-06) with a custom HUD:
+    -15s, Play/Pause, +15s, Audio (F-07..F-10, F-12 placeholder).
+-->
+<component name="PlaybackScreen" extends="Group">
+    <interface>
+        <field id="content" type="node" onChange="onContentChanged" />
+        <!-- exit -->
+        <field id="action" type="string" alwaysNotify="true" />
+    </interface>
+    <script type="text/brightscript" uri="PlaybackScreen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/common/Utils.brs" />
+    <script type="text/brightscript" uri="pkg:/components/common/SeekMath.brs" />
+    <children>
+        <Rectangle width="1920" height="1080" color="0x000000FF" />
+        <Video id="video" width="1920" height="1080" enableUI="false" />
+
+        <Label id="buffering" visible="true" color="0xF2F4F8FF" width="1920" horizAlign="center" translation="[0, 510]" font="font:MediumBoldSystemFont" />
+
+        <Group id="hud" visible="false">
+            <Rectangle width="1920" height="340" translation="[0, 740]" color="0x000000B8" />
+            <Label id="title" color="0xF2F4F8FF" width="1680" translation="[120, 776]" font="font:MediumBoldSystemFont" />
+
+            <Group id="timeline" translation="[120, 856]">
+                <Rectangle id="track" width="1680" height="10" color="0xFFFFFF4D" />
+                <Rectangle id="fill" width="0" height="10" color="0x4FC3B0FF" />
+                <Rectangle id="marker" width="8" height="34" translation="[0, -12]" color="0xF2F4F8FF" visible="false" />
+            </Group>
+            <Label id="position" color="0xF2F4F8FF" translation="[120, 884]" font="font:SmallerSystemFont" />
+            <Label id="duration" color="0x9AA3B2FF" width="400" horizAlign="right" translation="[1400, 884]" font="font:SmallerSystemFont" />
+
+            <Group id="buttons" translation="[524, 950]">
+                <Group id="back15">
+                    <Rectangle id="focusRing" width="188" height="88" translation="[-4, -4]" color="0xF2F4F8FF" visible="false" />
+                    <Rectangle id="bg" width="180" height="80" color="0x202633FF" />
+                    <Label id="label" text="-15s" width="180" height="80" horizAlign="center" vertAlign="center" font="font:SmallBoldSystemFont" />
+                </Group>
+                <Group id="playPause" translation="[204, 0]">
+                    <Rectangle id="focusRing" width="248" height="88" translation="[-4, -4]" color="0xF2F4F8FF" visible="false" />
+                    <Rectangle id="bg" width="240" height="80" color="0x202633FF" />
+                    <Label id="label" text="Pause" width="240" height="80" horizAlign="center" vertAlign="center" font="font:SmallBoldSystemFont" />
+                </Group>
+                <Group id="fwd15" translation="[468, 0]">
+                    <Rectangle id="focusRing" width="188" height="88" translation="[-4, -4]" color="0xF2F4F8FF" visible="false" />
+                    <Rectangle id="bg" width="180" height="80" color="0x202633FF" />
+                    <Label id="label" text="+15s" width="180" height="80" horizAlign="center" vertAlign="center" font="font:SmallBoldSystemFont" />
+                </Group>
+                <Group id="audio" translation="[672, 0]">
+                    <Rectangle id="focusRing" width="208" height="88" translation="[-4, -4]" color="0xF2F4F8FF" visible="false" />
+                    <Rectangle id="bg" width="200" height="80" color="0x202633FF" />
+                    <Label id="label" text="Audio" width="200" height="80" horizAlign="center" vertAlign="center" font="font:SmallBoldSystemFont" />
+                </Group>
+            </Group>
+        </Group>
+
+        <Group id="toast" visible="false" translation="[1340, 72]">
+            <Rectangle width="460" height="124" color="0x000000CC" />
+            <Rectangle width="8" height="124" color="0x4FC3B0FF" />
+            <Label id="toastMain" color="0x4FC3B0FF" width="404" translation="[32, 14]" font="font:LargeBoldSystemFont" />
+            <Label id="toastSub" color="0xF2F4F8FF" width="404" translation="[32, 72]" font="font:SmallerSystemFont" />
+        </Group>
+
+        <Group id="panel" visible="false">
+            <Rectangle width="1920" height="1080" color="0x000000A0" />
+            <Rectangle width="1080" height="460" translation="[420, 310]" color="0x171B23FF" />
+            <Rectangle width="1080" height="8" translation="[420, 310]" color="0x4FC3B0FF" id="panelBar" />
+            <Label id="panelTitle" color="0xF2F4F8FF" width="960" translation="[480, 360]" font="font:LargeBoldSystemFont" />
+            <Label id="panelBody" color="0x9AA3B2FF" width="960" wrap="true" maxLines="6" translation="[480, 440]" font="font:SmallerSystemFont" />
+            <Label id="panelHint" color="0x5A6170FF" width="960" translation="[480, 700]" font="font:SmallestSystemFont" />
+        </Group>
+
+        <Timer id="hudTimer" duration="5" />
+        <Timer id="toastTimer" duration="1.5" />
+        <Timer id="seekTimer" duration="8" />
+    </children>
+</component>

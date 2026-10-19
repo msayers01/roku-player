@@ -5,3 +5,5 @@ __pycache__/
 node_modules/
 out/
 *.db
+tools/screenshots/www/lib/
+tools/screenshots/www/assets/

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Manual server IP/port entry (F-01) and connection status with retry/edit (F-02). -->
+<component name="ConnectionScreen" extends="Group">
+    <interface>
+        <field id="host" type="string" onChange="onAddressChanged" />
+        <field id="port" type="string" onChange="onAddressChanged" />
+        <field id="statusText" type="string" onChange="onStatusChanged" />
+        <!-- info | busy | ok | error -->
+        <field id="statusKind" type="string" value="info" onChange="onStatusChanged" />
+        <!-- connect | back -->
+        <field id="action" type="string" alwaysNotify="true" />
+    </interface>
+    <script type="text/brightscript" uri="ConnectionScreen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/common/Utils.brs" />
+    <children>
+        <Label id="brand" text="LAN Media" color="0x4FC3B0FF" translation="[120, 72]" font="font:SmallBoldSystemFont" />
+
+        <Label id="heading" text="Connect to your media server" color="0xF2F4F8FF"
+            width="1000" horizAlign="left" translation="[460, 200]" font="font:ExtraLargeBoldSystemFont" />
+        <Label id="intro" color="0x9AA3B2FF" width="1000" wrap="true" maxLines="2" translation="[460, 290]"
+            text="Run start_server.bat on your Windows PC. It prints the IP address and port to enter here." font="font:SmallerSystemFont" />
+
+        <Group id="hostRow" translation="[460, 410]">
+            <Rectangle id="focusRing" width="1008" height="108" translation="[-4, -4]" color="0x4FC3B0FF" visible="false" />
+            <Rectangle id="bg" width="1000" height="100" color="0x202633FF" />
+            <Label id="name" text="Server IP" color="0x9AA3B2FF" height="100" vertAlign="center" translation="[40, 0]" font="font:SmallSystemFont" />
+            <Label id="value" width="560" height="100" horizAlign="right" vertAlign="center" translation="[400, 0]" font="font:MediumBoldSystemFont" />
+        </Group>
+
+        <Group id="portRow" translation="[460, 530]">
+            <Rectangle id="focusRing" width="1008" height="108" translation="[-4, -4]" color="0x4FC3B0FF" visible="false" />
+            <Rectangle id="bg" width="1000" height="100" color="0x202633FF" />
+            <Label id="name" text="Port" color="0x9AA3B2FF" height="100" vertAlign="center" translation="[40, 0]" font="font:SmallSystemFont" />
+            <Label id="value" width="560" height="100" horizAlign="right" vertAlign="center" translation="[400, 0]" font="font:MediumBoldSystemFont" />
+        </Group>
+
+        <Group id="connectRow" translation="[460, 680]">
+            <Rectangle id="focusRing" width="1008" height="98" translation="[-4, -4]" color="0xF2F4F8FF" visible="false" />
+            <Rectangle id="bg" width="1000" height="90" color="0x202633FF" />
+            <Label id="name" text="Connect" width="1000" height="90" horizAlign="center" vertAlign="center" font="font:MediumBoldSystemFont" />
+        </Group>
+
+        <Label id="status" width="1000" wrap="true" maxLines="4" translation="[460, 810]" font="font:SmallerSystemFont" />
+
+        <Label id="hint" color="0x5A6170FF" width="1680" horizAlign="center" translation="[120, 1000]"
+            text="Up / Down  move     OK  edit or connect     Back  exit" font="font:SmallestSystemFont" />
+    </children>
+</component>
