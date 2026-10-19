@@ -1,0 +1,15 @@
+{
+  "name": "roku-lan-media-client",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sideloadable Roku SceneGraph client for the LAN Media server",
+  "scripts": {
+    "lint": "bsc --create-package=false",
+    "package": "bsc --create-package=true --out-file=out/roku-lan-media.zip",
+    "test": "node tests/run-brs-tests.js"
+  },
+  "devDependencies": {
+    "brighterscript": "0.73.7",
+    "brs-node": "^2.6.0"
+  }
+}

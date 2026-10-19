@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- MarkupGrid cell: poster with fallback art (F-03), title and an "Unsupported" badge. -->
+<component name="PosterItem" extends="Group">
+    <interface>
+        <field id="itemContent" type="node" onChange="onContentChanged" />
+        <field id="focusPercent" type="float" onChange="onFocusChanged" />
+        <field id="gridHasFocus" type="boolean" onChange="onFocusChanged" />
+        <field id="width" type="float" />
+        <field id="height" type="float" />
+    </interface>
+    <script type="text/brightscript" uri="PosterItem.brs" />
+    <children>
+        <!-- Everything stays inside the 220x330 cell so grids that clip items still show focus. -->
+        <Rectangle id="frame" width="220" height="330" color="0x202633FF" />
+        <Rectangle id="focusRing" width="220" height="330" color="0x4FC3B0FF" opacity="0" />
+        <Poster id="poster" width="208" height="318" translation="[6, 6]" loadDisplayMode="scaleToZoom"
+            loadingBitmapUri="pkg:/images/placeholder_poster.png"
+            failedBitmapUri="pkg:/images/placeholder_poster.png" />
+        <Group id="badge" visible="false" translation="[6, 282]">
+            <Rectangle width="208" height="42" color="0x000000CC" />
+            <Label text="Unsupported" color="0xF2B544FF" width="208" height="42" horizAlign="center" vertAlign="center" font="font:TinyBoldSystemFont" />
+        </Group>
+        <Label id="title" width="220" height="40" color="0x9AA3B2FF" horizAlign="center" vertAlign="center"
+            translation="[0, 336]" font="font:SmallestSystemFont" />
+    </children>
+</component>

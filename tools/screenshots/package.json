@@ -1,0 +1,12 @@
+{
+  "name": "roku-lan-media-screenshots",
+  "private": true,
+  "description": "Browser build of the brs-engine Roku simulator, used only to capture UI screenshots",
+  "scripts": {
+    "setup": "node copy-engine.js"
+  },
+  "devDependencies": {
+    "brs-engine": "2.6.0",
+    "brs-scenegraph": "0.6.0"
+  }
+}

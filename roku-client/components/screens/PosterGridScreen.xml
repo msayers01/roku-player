@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Poster library (F-03). -->
+<component name="PosterGridScreen" extends="Group">
+    <interface>
+        <field id="content" type="node" onChange="onContentChanged" />
+        <field id="serverLabel" type="string" onChange="onServerLabelChanged" />
+        <field id="selectedItem" type="node" />
+        <!-- select | settings | back -->
+        <field id="action" type="string" alwaysNotify="true" />
+    </interface>
+    <script type="text/brightscript" uri="PosterGridScreen.brs" />
+    <children>
+        <Label text="LAN Media" color="0x4FC3B0FF" translation="[120, 60]" font="font:SmallBoldSystemFont" />
+        <Label id="count" color="0xF2F4F8FF" translation="[120, 104]" font="font:LargeBoldSystemFont" />
+        <Label id="server" color="0x9AA3B2FF" width="900" horizAlign="right" translation="[900, 68]" font="font:SmallestSystemFont" />
+
+        <MarkupGrid id="grid" itemComponentName="PosterItem" translation="[190, 196]"
+            numColumns="6" numRows="2" itemSize="[220, 374]" itemSpacing="[44, 30]"
+            drawFocusFeedback="false" vertFocusAnimationStyle="fixedFocusWrap" />
+
+        <Group id="empty" visible="false" translation="[460, 420]">
+            <Label text="No movies found" color="0xF2F4F8FF" width="1000" horizAlign="center" font="font:LargeBoldSystemFont" />
+            <Label color="0x9AA3B2FF" width="1000" horizAlign="center" wrap="true" translation="[0, 80]"
+                text="Add MP4 files to a folder listed in config.json, then restart start_server.bat. Press * to change the server." font="font:SmallerSystemFont" />
+        </Group>
+
+        <Label id="hint" color="0x5A6170FF" width="1680" horizAlign="center" translation="[120, 1010]"
+            text="OK  details     *  server settings     Back  exit" font="font:SmallestSystemFont" />
+    </children>
+</component>

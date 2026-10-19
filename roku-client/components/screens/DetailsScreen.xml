@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Title, runtime, poster, codec summary and playable status (F-04, F-11). -->
+<component name="DetailsScreen" extends="Group">
+    <interface>
+        <!-- Grid ContentNode for instant display; detail arrives from GET /api/media/{id}. -->
+        <field id="item" type="node" onChange="onItemChanged" />
+        <field id="detail" type="assocarray" onChange="onDetailChanged" />
+        <field id="loadError" type="string" onChange="onLoadError" />
+        <!-- play | back -->
+        <field id="action" type="string" alwaysNotify="true" />
+    </interface>
+    <script type="text/brightscript" uri="DetailsScreen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/common/Utils.brs" />
+    <children>
+        <Poster id="backdrop" width="1920" height="1080" loadDisplayMode="scaleToZoom" opacity="0.08" />
+        <Rectangle width="1920" height="1080" color="0x0E1116B3" />
+
+        <Rectangle width="480" height="720" translation="[160, 180]" color="0x202633FF" />
+        <Poster id="poster" width="480" height="720" translation="[160, 180]" loadDisplayMode="scaleToZoom"
+            loadingBitmapUri="pkg:/images/placeholder_poster.png"
+            failedBitmapUri="pkg:/images/placeholder_poster.png" />
+
+        <Group translation="[720, 180]">
+            <Label id="title" color="0xF2F4F8FF" width="1040" wrap="true" maxLines="2" font="font:ExtraLargeBoldSystemFont" />
+            <Label id="meta" color="0x9AA3B2FF" width="1040" font="font:SmallSystemFont" />
+            <Label id="tech" color="0xF2F4F8FF" width="1040" font="font:SmallerSystemFont" />
+            <Label id="status" width="1040" wrap="true" maxLines="3" font="font:SmallerBoldSystemFont" />
+
+            <Group id="buttons">
+                <Group id="playButton">
+                    <Rectangle id="focusRing" width="328" height="108" translation="[-4, -4]" color="0xF2F4F8FF" visible="false" />
+                    <Rectangle id="bg" width="320" height="100" color="0x202633FF" />
+                    <Label id="label" text="Play" width="320" height="100" horizAlign="center" vertAlign="center" font="font:MediumBoldSystemFont" />
+                </Group>
+                <Group id="backButton" translation="[360, 0]">
+                    <Rectangle id="focusRing" width="388" height="108" translation="[-4, -4]" color="0xF2F4F8FF" visible="false" />
+                    <Rectangle id="bg" width="380" height="100" color="0x202633FF" />
+                    <Label id="label" text="Back to library" width="380" height="100" horizAlign="center" vertAlign="center" font="font:SmallBoldSystemFont" />
+                </Group>
+            </Group>
+
+            <Label id="note" color="0x5A6170FF" width="1040" wrap="true" maxLines="2"
+                text="During playback press OK for controls: -15s, Play/Pause, +15s. The Replay key also jumps back 15 seconds." font="font:SmallestSystemFont" />
+        </Group>
+    </children>
+</component>

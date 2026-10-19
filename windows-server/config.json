@@ -1,0 +1,15 @@
+{
+  "bind_address": "0.0.0.0",
+  "port": 8080,
+  "database_path": "catalog.db",
+  "ffprobe_path": "ffprobe",
+  "media_roots": [
+    {"name": "Movies", "path": "C:\\Users\\Public\\Videos\\Movies"}
+  ],
+  "allowed_extensions": [".mp4", ".m4v"],
+  "direct_play": {
+    "containers": ["mp4"],
+    "video_codecs": ["h264"],
+    "audio_codecs": ["aac"]
+  }
+}
