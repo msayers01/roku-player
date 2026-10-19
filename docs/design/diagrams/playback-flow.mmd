@@ -1,0 +1,31 @@
+flowchart TD
+  A([User manually starts Windows server]) --> B[Scan media & start HTTP API]
+  C([Launch Roku app]) --> D{Saved host IP and port?}
+  D -- No --> E[Enter host IP and port]
+  E --> F[Save settings]
+  F --> G[GET /api/health]
+  D -- Yes --> G
+  B -. Host online .-> G
+  G --> H{Reachable?}
+  H -- No --> I[Error: Retry or Edit IP]
+  I --> G
+  H -- Yes --> J[GET /api/media]
+  J --> K[Render movie poster grid]
+  K --> L[Open movie details]
+  L --> M{Play selected?}
+  M -- No --> K
+  M -- Yes --> N{Direct-play compatible?}
+  N -- No --> O[Unsupported format message]
+  O --> L
+  N -- Yes --> P[Start native Roku Video node HTTP stream]
+  P --> Q[Playback HUD]
+  Q --> R{User input}
+  R -- +15 seconds --> S[Seek clamp position + 15]
+  R -- -15 seconds --> T[Seek clamp position - 15]
+  R -- Pause / Resume --> U[Toggle playback]
+  R -- Audio EQ --> V[Not in MVP: no confirmed DSP]
+  S --> Q
+  T --> Q
+  U --> Q
+  V --> Q
+  R -- Back / End --> K

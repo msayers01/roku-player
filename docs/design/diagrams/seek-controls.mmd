@@ -1,0 +1,14 @@
+flowchart TD
+  A[HUD user selects +15 or -15] --> B{Video loaded & duration/position valid?}
+  B -- No --> C[Show Seek unavailable]
+  B -- Yes --> D[Read latest confirmed position]
+  D --> E[Compute target = position + delta]
+  E --> F[Clamp target to seekable media interval]
+  F --> G{Seek already in progress?}
+  G -- Yes --> H[Debounce or queue newest intent]
+  G -- No --> I[Issue native Video seek request]
+  I --> J[Show +15s or -15s HUD feedback]
+  J --> K{Position update / timeout?}
+  K -- Updated --> L[Refresh progress bar and controls]
+  K -- Timeout / Error --> M[Show seek error and recover]
+  H --> K

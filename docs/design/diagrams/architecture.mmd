@@ -1,0 +1,24 @@
+flowchart LR
+  subgraph WIN[Windows 11 PC — manually started]
+    START[Start server.bat] --> API[FastAPI HTTP server]
+    SCAN[Media scanner] --> DB[(SQLite catalog)]
+    FILES[(Approved local MP4 files)] --> API
+    POSTERS[(Poster JPEG/PNG)] --> API
+    DB --> API
+    START --> SCAN
+  end
+  subgraph LAN[Trusted LAN]
+    ROUTER[Router / switch / Wi-Fi]
+  end
+  subgraph TV[Roku SceneGraph client]
+    SETTINGS[Saved manual IP + port] --> CONNECT[Connection manager]
+    CONNECT --> GRID[Poster grid + details]
+    GRID --> PLAYER[Video node]
+    SEEK[15-second seek controller] --> PLAYER
+    HUD[On-screen controls] --> SEEK
+    EQ[EQ presets — FUTURE / NOT IMPLEMENTED]
+  end
+  API <-->|HTTP JSON / poster images / MP4 byte ranges| ROUTER
+  ROUTER <--> CONNECT
+  ROUTER --> GRID
+  ROUTER --> PLAYER
